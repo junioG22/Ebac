@@ -1,3 +1,5 @@
+package ExerciciosEbac;
+
 import java.util.Scanner;
 
 public class Exercicio2 {
