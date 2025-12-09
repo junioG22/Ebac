@@ -19,9 +19,9 @@ public class Exercicio2 {
 
         for (int i = 0; i < n; i++) {
             if (vetor[i] % 2 == 0) {
-                vetor[i] = vetor[i] * 2; // número par
+                vetor[i] = vetor[i] * 2;
             } else {
-                vetor[i] = (int) Math.pow(vetor[i], 2); // número ímpar
+                vetor[i] = (int) Math.pow(vetor[i], 2);
             }
         }
 

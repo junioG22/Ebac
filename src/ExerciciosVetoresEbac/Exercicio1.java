@@ -43,4 +43,13 @@ public class Exercicio1 {
         char[] letras = nome.toCharArray();
 
         for (char c : letras) {
-            if (c == 'a' || c =
+            if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {
+                vogais++;
+            }
+        }
+
+        System.out.println("Quantidade de vogais: " + vogais);
+
+        sc.close();
+    }
+}
