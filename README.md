@@ -2,5 +2,5 @@
 
 Projeto de estudos em Java.
 
-## 📧 Contato
+## 📧 Contato:
 E-mail EBAC: junioggcosta@yahoo.com.br
