@@ -23,7 +23,7 @@ public class Main {
         biblioteca.cadastrarUsuario(
                 new Usuario("Marlon", "marlon@gmail.com"));
 
-        System.out.println("\n=== LIVROS ===");
+        System.out.println("\n=== TODOS OS LIVROS ===");
         biblioteca.listarLivros();
 
         System.out.println("\n=== BUSCA POR TÍTULO ===");
@@ -32,11 +32,20 @@ public class Main {
         System.out.println("\n=== ORDENADOS POR ANO ===");
         biblioteca.ordenarPorAno();
 
-        System.out.println("\n=== USUÁRIOS ===");
+        System.out.println("\n=== ORDENADOS POR TÍTULO ===");
+        biblioteca.ordenarPorTitulo();
+
+        System.out.println("\n=== TODOS OS USUÁRIOS ===");
         biblioteca.listarUsuarios();
+
+        System.out.println("\n=== BUSCAR USUÁRIO POR EMAIL ===");
+        biblioteca.buscarUsuarioPorEmail("carlos@gmail.com");
 
         System.out.println("\n=== FILTRAR AUTOR ===");
         biblioteca.filtrarPorAutor("João");
+
+        System.out.println("\n=== AGRUPAR POR AUTOR ===");
+        biblioteca.agruparPorAutor();
 
         System.out.println("\n=== EMPRESTAR ===");
 
@@ -53,17 +62,24 @@ public class Main {
 
         }
 
+        System.out.println("\n=== TENTAR EMPRESTAR LIVRO JA EMPRESTADO ===");
+
+        try {
+
+            biblioteca.emprestarLivro(
+                    "Java",
+                    "marlon@gmail.com"
+            );
+
+        } catch (LivroIndisponivelException e) {
+
+            System.out.println(
+                    "Erro: " + e.getMessage()
+            );
+        }
+
         System.out.println("\n=== DEVOLUÇÃO ===");
         biblioteca.devolverLivro("Java");
-
-        System.out.println("\n=== DISPONIVEIS ===");
-        biblioteca.listarDisponiveis();
-
-        System.out.println("\n=== EMPRESTADOS ===");
-        biblioteca.listarEmprestimos();
-
-        System.out.println("\n=== AGRUPADOS ===");
-        biblioteca.agruparPorAutor();
 
         biblioteca.salvarDados();
     }

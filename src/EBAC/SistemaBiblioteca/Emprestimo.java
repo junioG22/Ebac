@@ -15,6 +15,14 @@ public class Emprestimo implements Serializable {
         this.data = LocalDateTime.now();
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public Livro getLivro() {
+        return livro;
+    }
+
     @Override
     public String toString() {
         return """

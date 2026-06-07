@@ -41,6 +41,20 @@ public class Biblioteca {
         }
     }
 
+    public void buscarUsuarioPorEmail(String email) {
+
+        usuarios.stream()
+                .filter(u ->
+                        u.getEmail()
+                                .equalsIgnoreCase(email))
+                .map(u ->
+                        "Usuário encontrado: "
+                                + u.getNome()
+                                + " | Email: "
+                                + u.getEmail())
+                .forEach(System.out::println);
+    }
+
     // LISTAR LIVROS
     public void listarLivros() {
         livros.forEach(System.out::println);
@@ -116,7 +130,12 @@ public class Biblioteca {
 
         emprestimos.add(emprestimo);
 
-        System.out.println("Livro emprestado com sucesso.");
+        System.out.println(
+                "Livro emprestado com sucesso para "
+                        + resultadoUsuario.get().getNome()
+                        + " de email: "
+                        + resultadoUsuario.get().getEmail()
+        );
     }
 
     // DEVOLVER
@@ -124,12 +143,45 @@ public class Biblioteca {
 
         Optional<Livro> resultado = buscarLivro(titulo);
 
-        resultado.ifPresent(livro -> {
-            livro.setEmprestado(false);
-            System.out.println("Livro devolvido.");
-        });
-    }
+        resultado.ifPresentOrElse(
 
+                livro -> {
+
+                    if (!livro.isEmprestado()) {
+
+                        System.out.println(
+                                "O livro já estava disponível."
+                        );
+
+                        return;
+                    }
+
+                    Optional<Emprestimo> resultadoEmprestimo =
+                            emprestimos.stream()
+                                    .filter(e ->
+                                            e.getLivro()
+                                                    .getTitulo()
+                                                    .equalsIgnoreCase(titulo))
+                                    .findFirst();
+
+                    livro.setEmprestado(false);
+
+                    resultadoEmprestimo.ifPresent(e ->
+
+                            System.out.println(
+                                    "Livro \"" + livro.getTitulo()
+                                            + "\" devolvido com sucesso por "
+                                            + e.getUsuario().getNome()
+                                            + " de email: "
+                                            + e.getUsuario().getEmail()
+                            )
+                    );
+
+                },
+
+                () -> System.out.println("Livro não encontrado.")
+        );
+    }
     // ORDENAR POR TITULO
     public void ordenarPorTitulo() {
 
@@ -155,20 +207,6 @@ public class Biblioteca {
                         l.getAutor()
                                 .equalsIgnoreCase(autor))
                 .forEach(System.out::println);
-    }
-
-    // LISTAR DISPONIVEIS
-    public void listarDisponiveis() {
-
-        livros.stream()
-                .filter(l -> !l.isEmprestado())
-                .forEach(System.out::println);
-    }
-
-    // LISTAR EMPRESTADOS
-    public void listarEmprestimos() {
-
-        emprestimos.forEach(System.out::println);
     }
 
     // AGRUPAR POR AUTOR
